@@ -10,20 +10,27 @@ let int = null;
 startBtn.addEventListener("click", () => {
   if (int !== null) {
     clearInterval(int);
+    resetBtn.disabled = true;
   }
+
   int = setInterval(displayTimer, 10);
   stopBtn.disabled = false;
-  resetBtn.disabled = false;
+  startBtn.disabled = true;
 });
 
 stopBtn.addEventListener("click", () => {
   clearInterval(int);
+  stopBtn.disabled = true;
+  resetBtn.disabled = false;
+  startBtn.disabled = false;
 });
 
 resetBtn.addEventListener("click", () => {
   clearInterval(int);
   [milliseconds, seconds, minutes] = [0, 0, 0];
-  timer.innerHTML = `00 : 00 : 000`;
+  timer.innerHTML = `00:00:000`;
+  startBtn.disabled = false;
+  resetBtn.disabled = true;
 });
 
 function displayTimer() {
@@ -47,5 +54,5 @@ function displayTimer() {
       : milliseconds < 100
       ? "0" + milliseconds
       : milliseconds;
-  timer.innerHTML = ` ${m} : ${s} : ${ms}`;
+  timer.innerHTML = `${m}:${s}:${ms}`;
 }
